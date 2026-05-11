@@ -1,0 +1,69 @@
+# tests/test_day15.py
+import pytest
+from playwright.sync_api import sync_playwright
+
+
+
+
+# ── Simple asserts, no fixture needed─────────────────────
+def test_math():
+    assert 10 - 3 == 7
+
+def test_string():
+    assert "saucedemo".upper() == "SAUCEDEMO"
+
+def test_list():
+    items = ["backpack", "bike light", "t-shirt"]
+    assert len(items) == 3
+    assert "backpack" in items
+
+
+
+
+
+
+
+# ──  user_creds fixture: no browser ───────────────────────────────
+@pytest.fixture
+def user_creds():
+    yield {
+        "username": "standard_user",
+        "password": "secret_sauce"
+    }
+
+def test_username(user_creds):
+    assert user_creds["username"] == "standard_user"
+
+def test_password(user_creds):
+    assert user_creds["password"] == "secret_sauce"
+
+
+
+
+
+
+
+# ── browser + page fixture chain────────────────────────────
+
+
+@pytest.fixture(scope="session")
+def browser():
+    with sync_playwright() as p:
+        b = p.chromium.launch(headless=False)
+        yield b
+        b.close()
+
+# Fixture chaining — page needs a browser to create a page from. 
+# PyTest sees browser in the parameter → finds the browser fixture → runs it → passes result in. Automatic. ✅
+
+@pytest.fixture
+def page(browser):
+    pg = browser.new_page()
+    pg.goto("https://www.saucedemo.com")
+    yield pg
+    pg.close()
+
+
+# Test receives page → already has browser open, already navigated to saucedemo → just assert the title. 
+def test_page_title(page):
+    assert "Swag Labs" in page.title()
