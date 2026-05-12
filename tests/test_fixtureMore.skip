@@ -23,7 +23,7 @@ def test_list():
 
 
 
-# ──  user_creds fixture: no browser ───────────────────────────────
+# ──  user_creds fixture ───────────────────────────────
 @pytest.fixture
 def user_creds():
     yield {
