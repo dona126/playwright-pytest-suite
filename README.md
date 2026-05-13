@@ -39,6 +39,3 @@ pytest --headed
 ![Playwright Tests](https://github.com/dona126/playwright-pytest-suite/actions/workflows/playwright-tests.yml/badge.svg)
 
 ---
-
-**Dona** — SDET | Upskilling in AI-powered test automation
-[GitHub](https://github.com/dona126)
