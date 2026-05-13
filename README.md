@@ -3,8 +3,6 @@
 Full E2E test suite for [SauceDemo](https://www.saucedemo.com) built with
 Playwright, PyTest, and POM — with GitHub Actions CI/CD.
 
-Part of my 42-day SDET upskilling roadmap — Week 3.
-
 ---
 
 ## 🛠 Tech Stack
