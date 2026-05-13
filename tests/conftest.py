@@ -1,13 +1,15 @@
 import pytest
 from pages.login_page import LoginPage
+from pages.product_page import ProductPage
+from pages.cart_page import CartPage
 
 
 BASE_URL = "https://www.saucedemo.com"
 
 # browser, context, page → handled by pytest-playwright plugin ✅
-# we only write what plugin cannot do → logged_in_page
+# we only write what plugin cannot do → like logged_in_page
 
-#used everywhere
+
 @pytest.fixture
 def login_page(page):
     login = LoginPage(page)
@@ -17,13 +19,25 @@ def login_page(page):
 # gives object to test,
 # then after test finishes it continues below yield.
 
-#used in test_testconftest.py file ALONE
+
+@pytest.fixture
+def product_page(logged_in_page):# logged_in_page runs FIRST
+    product = ProductPage(logged_in_page)  # object created AFTER login
+    yield product
+
+
+@pytest.fixture
+def cart_page(logged_in_page):# logged_in_page runs FIRST
+    cart = CartPage(logged_in_page)  # object created AFTER login
+    yield cart
+
+
 @pytest.fixture
 def logged_in_page(page):        # page comes from plugin
     page.goto(BASE_URL)
-    page.fill("#user-name", "standard_user")
-    page.fill("#password", "secret_sauce")
-    page.click("#login-button")
+    page.get_by_placeholder("Username").fill("standard_user")
+    page.get_by_placeholder("Password").fill("secret_sauce")
+    page.get_by_role("button", name="Login").click()
     page.wait_for_url("**/inventory.html")# Explicit wait
     # Because Playwright already has auto-waiting.But after:login,navigation,redirects,page changes explicit waits like: 
     # wait_for_url()make tests more stable and clear.

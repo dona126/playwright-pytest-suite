@@ -1,8 +1,6 @@
-#Full login test suite — valid, invalid, locked user, empty fields, parametrize
-#6 cases prsnt here
+#Full login test suite — valid, invalid, locked user, empty fields, parametrize, page title
+#Test case count: 6
 
-# 18 Products + Cart Tests Product count, add to cart, badge count, cart page, remove item 
-# 19 Checkout + E2E Full user journey — login → add → checkout → confirm order
 import pytest
 from playwright.sync_api import Page, expect
 from pages.login_page import LoginPage
