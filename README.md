@@ -38,6 +38,13 @@ Playwright, PyTest, and POM — with GitHub Actions CI/CD.
 | `test_cart_badge_decrements_after_item_removal` | Cart badge disappears after removing only item |
 | `test_continue_shopping_button_visible_in_cart` | Continue shopping button visible on cart page |
 
+### Checkout
+| Test | Description |
+|------|-------------|
+| `test_complete_checkout_flow` | E2E — add item → cart → checkout → confirm order |
+| `test_checkout_missing_firstname` | Error shown when first name missing on checkout form |
+| `test_checkout_missing_lastname` | Error shown when last name missing on checkout form |
+| `test_checkout_missing_postalcode` | Error shown when postal code missing on checkout form |
 ---
 
 ## ⚙️ Setup & Run
