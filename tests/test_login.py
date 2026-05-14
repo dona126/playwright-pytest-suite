@@ -5,9 +5,9 @@ import pytest
 from playwright.sync_api import Page, expect
 from pages.login_page import LoginPage
 
-def test_valid_login(login_page, page):
+def test_valid_login(login_page):
     login_page.login("standard_user", "secret_sauce")  # call method
-    expect(page).to_have_url("https://www.saucedemo.com/inventory.html")  # here its products page..tht y page used n not login_page
+    expect(login_page.page).to_have_url("https://www.saucedemo.com/inventory.html")  # here its products page..tht y page used n not login_page
 
 def test_page_title(login_page):
     expect(login_page.page_title()).to_have_text("Swag Labs")

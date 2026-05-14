@@ -3,16 +3,17 @@ class ProductPage:
         self.page=page
 
         #Locators
-        self.product = page.locator("[data-test='inventory-item']")
+        self.products = page.locator("[data-test='inventory-item']")
          #Filtering locator of first addable product
         self.first_addable_product = page.locator("[data-test='inventory-item']").filter(
             has=page.get_by_role("button", name="Add to cart")).first
         self.product_name = self.first_addable_product.locator(".inventory_item_name")
         self.add_to_cart_btn = self.first_addable_product.get_by_role("button",name="Add to cart")
         self.cart_badge = page.locator("[data-test='shopping-cart-badge']")
+        self.cart = page.locator("[data-test='shopping-cart-link']")
 
     def product_count_validation(self):
-       return self.product
+       return self.products
 
     def add_to_cart(self):
         self.add_to_cart_btn.click()
@@ -32,4 +33,4 @@ class ProductPage:
         return self.page.locator(".inventory_item_name", has_text=name)
     
     def go_to_cart(self):
-        self.cart_badge.click()
+        self.cart.click()
