@@ -2,6 +2,7 @@ import pytest
 from pages.login_page import LoginPage
 from pages.product_page import ProductPage
 from pages.cart_page import CartPage
+from pages.checkout_page import CheckoutPage
 
 
 BASE_URL = "https://www.saucedemo.com"
@@ -31,6 +32,10 @@ def cart_page(logged_in_page):# logged_in_page runs FIRST
     cart = CartPage(logged_in_page)  # object created AFTER login
     yield cart
 
+@pytest.fixture
+def checkout_page(logged_in_page):
+    checkout = CheckoutPage(logged_in_page)
+    yield checkout
 
 @pytest.fixture
 def logged_in_page(page):        # page comes from plugin

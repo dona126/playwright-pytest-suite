@@ -1,8 +1,7 @@
 #Test case count: 5
+
 import pytest
 from playwright.sync_api import Page, expect
-from pages.cart_page import CartPage
-from pages.product_page import ProductPage
 
 def test_added_item_visible_in_cart(product_page, cart_page):
     """Verify added item appears in cart page after clicking cart icon"""

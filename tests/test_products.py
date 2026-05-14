@@ -2,7 +2,6 @@
 
 import pytest
 from playwright.sync_api import Page, expect
-from pages.product_page import ProductPage
 
 def test_inventory_displays_six_products(product_page):
     """Verify exactly 6 products are displayed on the inventory page"""
