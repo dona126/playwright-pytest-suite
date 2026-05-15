@@ -9,6 +9,8 @@ on:
   pull_request:
     branches: [ main ]
 # → every time someone raises a PR to main → workflow triggers
+  workflow_dispatch:  
+#for running actions manually
 
 jobs:
   test:
