@@ -1,0 +1,64 @@
+name: Playwright Tests
+# → shows as workflow name in GitHub Actions tab
+
+on:
+  push:
+    branches: [ main ]
+# → every time you do git push origin main → workflow triggers
+
+  pull_request:
+    branches: [ main ]
+# → every time someone raises a PR to main → workflow triggers
+
+jobs:
+  test:
+# → job named "test" — you can have multiple jobs
+
+    runs-on: ubuntu-latest
+# → GitHub spins up a fresh Ubuntu Linux machine for this job
+
+    steps:
+    # → list of commands to run in order
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+# → marketplace action — clones your repo into the runner machine
+# → without this, runner has no code to work with
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+# → marketplace action — installs Python 3.12 on the runner
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+# → installs pytest, playwright, pytest-playwright from your requirements
+
+      - name: Install Playwright browsers
+        run: playwright install chromium
+# → downloads chromium browser binary on the runner
+
+      - name: Install system dependencies
+        run: playwright install-deps chromium
+# → installs Linux system libraries Chrome needs to run
+
+      - name: Run tests
+        run: pytest
+# → runs all tests — pytest.ini provides -v --tb=short automatically
+
+
+
+
+# Note:
+# YAML File anatomy:
+# name   → display name in Actions tab
+# on     → trigger — when to run
+# jobs   → units of work
+# steps  → commands inside each job
+# uses   → pre-built actions from marketplace
+# run    → shell commands you write
+
+CI runner is a fresh machine — missing Linux system libraries that Chrome needs.
+playwright install chromium       # downloads chromium browser
+playwright install-deps chromium  # installs Linux system deps for it
