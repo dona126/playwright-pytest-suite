@@ -59,6 +59,6 @@ jobs:
 # uses   → pre-built actions from marketplace
 # run    → shell commands you write
 
-CI runner is a fresh machine — missing Linux system libraries that Chrome needs.
-playwright install chromium       # downloads chromium browser
-playwright install-deps chromium  # installs Linux system deps for it
+# CI runner is a fresh machine — missing Linux system libraries that Chrome needs.
+# playwright install chromium       # downloads chromium browser
+# playwright install-deps chromium  # installs Linux system deps for it
