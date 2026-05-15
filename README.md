@@ -61,6 +61,6 @@ pytest --headed
 
 ## 🔁 CI/CD
 
-![Playwright Tests](https://github.com/dona126/playwright-pytest-suite/actions/workflows/playwright-tests.yml/badge.svg)
+[![Playwright Tests](https://github.com/dona126/playwright-pytest-suite/actions/workflows/playwright-tests.yml/badge.svg)](https://github.com/dona126/playwright-pytest-suite/actions/workflows/playwright-tests.yml)
 
 ---
