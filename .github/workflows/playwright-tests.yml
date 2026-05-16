@@ -1,38 +1,32 @@
 name: Playwright Tests
-# → shows as workflow name in GitHub Actions tab
 
 on:
   push:
     branches: [ main ]
-# → every time you do git push origin main → workflow triggers
-
   pull_request:
     branches: [ main ]
-# → every time someone raises a PR to main → workflow triggers
-  workflow_dispatch:  
-#for running actions manually
+  workflow_dispatch:
 
-jobs:                         
-  playwright-tests:           # job name, can be any
+jobs:
+  playwright-tests:
+    runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest    # GitHub's Ubuntu VM
-
-    strategy:                 # parallel matrix
+    strategy:
       matrix:
-        browser: [chromium, firefox, webkit]   # browsers to test
+        browser: [chromium, firefox, webkit]
 
-    steps:                 
+    steps:
 
-      - uses: actions/checkout@v4       #  pulls your code
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5   #  installs Python
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'       
+          python-version: '3.12'
 
-      - run: pip install -r requirements.txt   
+      - run: pip install -r requirements.txt
 
-      - run: playwright install ${{ matrix.browser }}        # installs current matrix browser
-      - run: playwright install-deps ${{ matrix.browser }}   
+      - run: playwright install
+      - run: playwright install-deps
 
       - run: |
           pytest
@@ -41,18 +35,17 @@ jobs:
           --video retain-on-failure
           --html=report.html
           --self-contained-html
-
         env:
-          SAUCE_PASSWORD: ${{ secrets.SAUCE_PASSWORD }}   # secret injected here
-          BASE_URL: https://www.saucedemo.com             # normal env var
+          SAUCE_PASSWORD: ${{ secrets.SAUCE_PASSWORD }}
+          BASE_URL: https://www.saucedemo.com
 
-      - uses: actions/upload-artifact@v4    # saves report to GitHub
-        if: always()                        # runs even if tests fail
+      - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: report-${{ matrix.browser }}       # unique name per browser
+          name: report-${{ matrix.browser }}
           path: |
             report.html
-            screenshots/
+            test-results/
 
 
 # Note:
