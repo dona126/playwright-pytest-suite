@@ -45,6 +45,7 @@ Playwright, PyTest, and POM — with GitHub Actions CI/CD.
 | `test_checkout_missing_firstname` | Error shown when first name missing on checkout form |
 | `test_checkout_missing_lastname` | Error shown when last name missing on checkout form |
 | `test_checkout_missing_postalcode` | Error shown when postal code missing on checkout form |
+
 ---
 
 ## ⚙️ Setup & Run
@@ -53,14 +54,55 @@ Playwright, PyTest, and POM — with GitHub Actions CI/CD.
 git clone https://github.com/dona126/playwright-pytest-suite.git
 cd playwright-pytest-suite
 pip install -r requirements.txt
-playwright install chromium
-pytest --headed
+python -m playwright install
 ```
 
----
+### Local (VS Code)
+```bash
+# single browser
+pytest --browser chromium --screenshot only-on-failure --html=report.html --self-contained-html
+
+# multi browser parallel
+pytest --browser chromium --browser firefox --browser webkit -n 3 --html=report.html --self-contained-html
+```
+
 
 ## 🔁 CI/CD
 
 [![Playwright Tests](https://github.com/dona126/playwright-pytest-suite/actions/workflows/playwright-tests.yml/badge.svg)](https://github.com/dona126/playwright-pytest-suite/actions/workflows/playwright-tests.yml)
 
+- Runs in parallel across **Chromium, Firefox, WebKit**
+- Screenshots + videos auto-captured on failure
+
+
+### GitHub Secrets Required
+`Repo → Settings → Secrets and variables → Actions`
+
+| Secret Name | Description |
+|---|---|
+| `SAUCE_PASSWORD` | SauceDemo login password |
+| `BASE_URL` | SauceDemo base URL |
+
 ---
+
+## 📊 Test Reports
+
+- HTML report + screenshots auto-generated on every CI run
+- Download from: `Actions → your run → Artifacts`
+
+| Artifact | Contents |
+|---|---|
+| `test-results-chromium` | report + screenshots |
+| `test-results-firefox` | report + screenshots |
+| `test-results-webkit` | report + screenshots |
+
+---
+
+## 🌐 Browsers Tested
+
+| Browser | Local | CI |
+|---|---|---|
+| Chromium | ✅ | ✅ |
+| Firefox | ✅ | ✅ |
+| WebKit | ✅ | ✅ |
+

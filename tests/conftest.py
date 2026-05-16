@@ -3,9 +3,14 @@ from pages.login_page import LoginPage
 from pages.product_page import ProductPage
 from pages.cart_page import CartPage
 from pages.checkout_page import CheckoutPage
+from dotenv import load_dotenv
+import os
 
+load_dotenv()  # reads .env file
 
-BASE_URL = "https://www.saucedemo.com"
+password = os.getenv("SAUCE_PASSWORD")
+BASE_URL = os.getenv("BASE_URL")
+
 
 # browser, context, page → handled by pytest-playwright plugin ✅
 # we only write what plugin cannot do → like logged_in_page

@@ -12,44 +12,47 @@ on:
   workflow_dispatch:  
 #for running actions manually
 
-jobs:
-  test:
-# → job named "test" — you can have multiple jobs
+jobs:                         
+  playwright-tests:           # job name, can be any
 
-    runs-on: ubuntu-latest
-# → GitHub spins up a fresh Ubuntu Linux machine for this job
+    runs-on: ubuntu-latest    # GitHub's Ubuntu VM
 
-    steps:
-    # → list of commands to run in order
+    strategy:                 # parallel matrix
+      matrix:
+        browser: [chromium, firefox, webkit]   # browsers to test
 
-      - name: Checkout code
-        uses: actions/checkout@v4
-# → marketplace action — clones your repo into the runner machine
-# → without this, runner has no code to work with
+    steps:                 
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4       #  pulls your code
+
+      - uses: actions/setup-python@v5   #  installs Python
         with:
-          python-version: '3.12'
-# → marketplace action — installs Python 3.12 on the runner
+          python-version: '3.12'       
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-# → installs pytest, playwright, pytest-playwright from your requirements
+      - run: pip install -r requirements.txt   
 
-      - name: Install Playwright browsers
-        run: playwright install chromium
-# → downloads chromium browser binary on the runner
+      - run: playwright install ${{ matrix.browser }}        # installs current matrix browser
+      - run: playwright install-deps ${{ matrix.browser }}   
 
-      - name: Install system dependencies
-        run: playwright install-deps chromium
-# → installs Linux system libraries Chrome needs to run
+      - run: |
+          pytest
+          --browser ${{ matrix.browser }}
+          --screenshot only-on-failure
+          --video retain-on-failure
+          --html=report.html
+          --self-contained-html
 
-      - name: Run tests
-        run: pytest
-# → runs all tests — pytest.ini provides -v --tb=short automatically
+        env:
+          SAUCE_PASSWORD: ${{ secrets.SAUCE_PASSWORD }}   # secret injected here
+          BASE_URL: https://www.saucedemo.com             # normal env var
 
-
+      - uses: actions/upload-artifact@v4    # saves report to GitHub
+        if: always()                        # runs even if tests fail
+        with:
+          name: report-${{ matrix.browser }}       # unique name per browser
+          path: |
+            report.html
+            screenshots/
 
 
 # Note:
