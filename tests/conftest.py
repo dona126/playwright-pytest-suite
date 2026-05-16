@@ -6,7 +6,7 @@ from pages.checkout_page import CheckoutPage
 from dotenv import load_dotenv
 import os
 
-load_dotenv()  # reads .env file
+load_dotenv(override=False)  # reads .env file
 
 password = os.getenv("SAUCE_PASSWORD")
 BASE_URL = os.getenv("BASE_URL")
@@ -46,7 +46,7 @@ def checkout_page(logged_in_page):
 def logged_in_page(page):        # page comes from plugin
     page.goto(BASE_URL)
     page.get_by_placeholder("Username").fill("standard_user")
-    page.get_by_placeholder("Password").fill("secret_sauce")
+    page.get_by_placeholder("Password").fill(password)
     page.get_by_role("button", name="Login").click()
     page.wait_for_url("**/inventory.html")# Explicit wait
     # Because Playwright already has auto-waiting.But after:login,navigation,redirects,page changes explicit waits like: 

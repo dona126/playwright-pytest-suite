@@ -1,5 +1,12 @@
-venv/
-.pytest_cache/
+# env
+.env
+
+# test output
+test-results/
+report.html
+
+# python
 __pycache__/
 *.pyc
-.env
+.pytest_cache/
+venv/
