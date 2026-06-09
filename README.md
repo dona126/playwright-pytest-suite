@@ -27,7 +27,8 @@ playwright-pytest-suite/
 │   └── test_checkout.py
 ├── .env               ← local only, gitignored
 ├── requirements.txt
-└── README.md
+├── README.md
+└──.github/workflows
 ```
 
 ---
@@ -77,7 +78,7 @@ playwright-pytest-suite/
 | `product_page.py` | Add/remove items, cart badge |
 | `cart_page.py` | View cart, remove, proceed to checkout |
 | `checkout_page.py` | Fill details, submit, confirm order |
-| `conftest.py` | Fixtures — login_page, logged_in_page, cart_page, checkout_page |
+| `conftest.py` | Fixtures — login_page, logged_in_page, product_page, cart_page, checkout_page |
 
 ---
 
