@@ -9,6 +9,8 @@ Playwright, PyTest, and POM — with GitHub Actions CI/CD.
 
 - Python 3.12 · Playwright · PyTest · POM · GitHub Actions
 
+---
+
 ## 📁 Project Structure
 playwright-pytest-suite/
 ├── pages/
@@ -75,6 +77,8 @@ playwright-pytest-suite/
 | `checkout_page.py` | Fill details, submit, confirm order |
 | `conftest.py` | Fixtures — login_page, logged_in_page, cart_page, checkout_page |
 
+---
+
 ## ⚙️ Setup & Run
 
 ```bash
@@ -84,11 +88,14 @@ pip install -r requirements.txt
 python -m playwright install
 ```
 
+---
+
 ## 🔐 Environment Variables
 Create `.env` in root:
 BASE_URL=https://www.saucedemo.com
 SAUCE_PASSWORD=secret_sauce
 
+---
 
 ### Local (VS Code)
 ```bash
@@ -99,6 +106,7 @@ pytest --browser chromium --screenshot only-on-failure --html=report.html --self
 pytest --browser chromium --browser firefox --browser webkit -n 3 --html=report.html --self-contained-html
 ```
 
+---
 
 ## 🔁 CI/CD
 
@@ -107,6 +115,7 @@ pytest --browser chromium --browser firefox --browser webkit -n 3 --html=report.
 - Runs in parallel across **Chromium, Firefox, WebKit**
 - Screenshots + videos auto-captured on failure
 
+---
 
 ### GitHub Secrets Required
 `Repo → Settings → Secrets and variables → Actions`
