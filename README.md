@@ -12,6 +12,7 @@ Playwright, PyTest, and POM — with GitHub Actions CI/CD.
 ---
 
 ## 📁 Project Structure
+```
 playwright-pytest-suite/
 ├── pages/
 │   ├── login_page.py
@@ -27,6 +28,7 @@ playwright-pytest-suite/
 ├── .env               ← local only, gitignored
 ├── requirements.txt
 └── README.md
+```
 
 ---
 
@@ -71,7 +73,7 @@ playwright-pytest-suite/
 ## 🏗 POM Design
 | File | Responsibility |
 |---|---|
-| `login_page.py` | Login form, logout |
+| `login_page.py` | Login |
 | `product_page.py` | Add/remove items, cart badge |
 | `cart_page.py` | View cart, remove, proceed to checkout |
 | `checkout_page.py` | Fill details, submit, confirm order |
