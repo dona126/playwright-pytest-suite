@@ -9,7 +9,25 @@ Playwright, PyTest, and POM — with GitHub Actions CI/CD.
 
 - Python 3.12 · Playwright · PyTest · POM · GitHub Actions
 
+## 📁 Project Structure
+playwright-pytest-suite/
+├── pages/
+│   ├── login_page.py
+│   ├── product_page.py
+│   ├── cart_page.py
+│   └── checkout_page.py
+├── tests/
+│   ├── conftest.py
+│   ├── test_login.py
+│   ├── test_product.py
+│   ├── test_cart.py
+│   └── test_checkout.py
+├── .env               ← local only, gitignored
+├── requirements.txt
+└── README.md
+
 ---
+
 
 ## Test Cases
  
@@ -48,6 +66,15 @@ Playwright, PyTest, and POM — with GitHub Actions CI/CD.
 
 ---
 
+## 🏗 POM Design
+| File | Responsibility |
+|---|---|
+| `login_page.py` | Login form, logout |
+| `product_page.py` | Add/remove items, cart badge |
+| `cart_page.py` | View cart, remove, proceed to checkout |
+| `checkout_page.py` | Fill details, submit, confirm order |
+| `conftest.py` | Fixtures — login_page, logged_in_page, cart_page, checkout_page |
+
 ## ⚙️ Setup & Run
 
 ```bash
@@ -56,6 +83,12 @@ cd playwright-pytest-suite
 pip install -r requirements.txt
 python -m playwright install
 ```
+
+## 🔐 Environment Variables
+Create `.env` in root:
+BASE_URL=https://www.saucedemo.com
+SAUCE_PASSWORD=secret_sauce
+
 
 ### Local (VS Code)
 ```bash
